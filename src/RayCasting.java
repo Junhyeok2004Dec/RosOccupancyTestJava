@@ -65,6 +65,8 @@ public class RayCasting extends JFrame {
 
 		g2d.setColor(Color.GREEN);
 
+		// 스레드 락 걸고 ray 추가하고 수정해야 하는데, 그냥 조금 쓰고 안 쓸 코드이기 때문에, 나중에 수정함.
+		// 결론 : 수정안함. 그냥 참고 쓰세요
 		for(Ray ray : rays_) {
 			ray.draw(g2d);
 

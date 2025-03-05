@@ -1,16 +1,17 @@
-package Model;
-
 import java.awt.*;
-import java.util.concurrent.RecursiveAction;
+import java.awt.event.KeyListener;
+
 
 public class RectangleModel extends PlaneModel implements Movable {
 
 
+	private transient String direction;
 
+	private KeyHandler keyHandler_;
 	private int dx_, dy_;
 	private Rectangle rectangleModel;
 
-	public RectangleModel(int xPos, int yPos, int dx, int dy) {
+	public RectangleModel(int xPos, int yPos, int dx, int dy, KeyListener keyListener_) {
 
 		super(new int[]{xPos, yPos}, new int[]{dx, dy});
 		this.rectangleModel = new Rectangle(dx, dy, xPos, yPos);
@@ -22,10 +23,15 @@ public class RectangleModel extends PlaneModel implements Movable {
 
 	}
 
-	public RectangleModel(Rectangle rect) {
+
+
+
+	public RectangleModel(Rectangle rect , KeyHandler keyHandler) {
 
 		super(new int[] {(int) rect.getX(), (int) rect.getY()}, new int[]{(int) rect.getWidth(), (int) rect.getHeight()});
 		this.rectangleModel = rect;
+
+		this.keyHandler_ = keyHandler;
 
 		this.dx_ = 0;
 		this.dy_ = 0;
@@ -39,6 +45,24 @@ public class RectangleModel extends PlaneModel implements Movable {
 
 	@Override
 	public void update() {
+
+
+
+		// KeyHandler update
+
+		//  up, down, right, left 에 대한 부분 존재
+
+		if(this.keyHandler_.up) this.dy_ = 10;
+		if(this.keyHandler_.down) this.dy_ = -10;
+		if(this.keyHandler_.right) this.dx_ = 10;
+		if(this.keyHandler_.left) this.dx_ = -10;
+
+
+		System.out.println(this.keyHandler_.up + " " + this.keyHandler_.down + " " + this.keyHandler_.right + " " + this.keyHandler_.left + "");
+
+
+
+
 
 		translateRectangle(this.dx_, this.dy_);
 	}

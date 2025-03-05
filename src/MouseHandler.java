@@ -7,9 +7,6 @@ public class MouseHandler implements MouseListener {
 
 	public static boolean LMB, RMB;
 
-	//LMB, RMB, ...
-	private Simulator gp_;
-
 	public static float x, y;
 
 	public static boolean isPressed, isClicked;
@@ -18,7 +15,7 @@ public class MouseHandler implements MouseListener {
 
 
 	public MouseHandler(Simulator gp_) {
-		this.gp_ = gp_;
+		//LMB, RMB, ...
 
 	}
 	/**

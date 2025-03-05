@@ -1,13 +1,11 @@
-package Model;
-
-import java.awt.*;
-import java.util.ArrayList;
-
 public class PlaneModel implements Movable {
 
 
 	private int x_, y_, zIndex_;
 	private int[] polygon;
+
+
+
 
 	/**
 	 *

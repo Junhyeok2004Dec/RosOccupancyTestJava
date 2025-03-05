@@ -1,5 +1,3 @@
-import Model.RectangleModel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,8 +21,8 @@ public class Simulator extends JPanel implements Runnable{
 
 
 
-	public static final int maxScreenColumn =  16;
-	public static final int maxScreenRow = 12;
+	public static final int maxScreenColumn =  32;
+	public static final int maxScreenRow = 24;
 
 
 	public static final int screenMultiX = 1;
@@ -58,8 +56,8 @@ public class Simulator extends JPanel implements Runnable{
 	public static final int screenWidth = screenMultiX* TILE_SCALE * maxScreenColumn;
 	public static final int screenHeight = screenMultiY * TILE_SCALE * maxScreenRow;
 
-	private KeyHandler keyHandler = new KeyHandler(this);
-	private MouseHandler mouseHandler = new MouseHandler(this);
+	private final KeyHandler keyHandler = new KeyHandler(this);
+	private final MouseHandler mouseHandler = new MouseHandler(this);
 
 	private Grid grid = new Grid(this, keyHandler, mouseHandler);
 	private RectangleModel rectangleModel;
@@ -89,7 +87,8 @@ public class Simulator extends JPanel implements Runnable{
 
 		this.rectangles = new ArrayList<>();
 		rectangles.add(new Rectangle(0, 0, 10, 10));
-		this.rectangleModel = new RectangleModel(rectangles.get(0));
+		this.rectangleModel = new RectangleModel(rectangles.get(0), keyHandler);
+
 
 	}
 
@@ -138,7 +137,7 @@ public class Simulator extends JPanel implements Runnable{
 
 
 		this.grid.update();
-
+		this.rectangleModel.update();
 	}
 
 

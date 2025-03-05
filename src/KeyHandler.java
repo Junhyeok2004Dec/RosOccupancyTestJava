@@ -6,11 +6,11 @@ public class KeyHandler implements KeyListener {
 
 
 	public static boolean up, down, right, left, exit, add, subtract;
-	private Simulator gp;
+	private Simulator gp_;
 
 
 	public KeyHandler(Simulator gp) {
-		this.gp = gp;
+		this.gp_ = gp;
 	}
 	/**
 	 * Invoked when a key has been typed.
