@@ -8,9 +8,9 @@ public class RayCasting extends JFrame {
 
 	private final ArrayList<Ray> rays_ = new ArrayList<>();
 	private float centerX, centerY;
-	private final int RAY_LENGTH = 3; // Ray의 길이
+	private final int RAY_LENGTH = 30; // Ray의 길이
 	private final int TILE_SIZE = Simulator.TILE_SCALE;   // 타일 크기
-	private final int ANGLE_INCREMENT = 36; // 각도 증가 (12도)
+	private final int ANGLE_INCREMENT = 12; // 각도 증가 (12도)
 
 	private int gridIndex[];
 
@@ -26,12 +26,8 @@ public class RayCasting extends JFrame {
 
 
 	public int[] getGridIndexFromMouse(int mouseX, int mouseY) {
-		int row = mouseY / Simulator.TILE_SCALE; // 마우스 Y 좌표를 타일 크기로 나누어 행 번호 계산
-		int col = mouseX / Simulator.TILE_SCALE; // 마우스 X 좌표를 타일 크기로 나누어 열 번호 계산
-
-
-
-
+		int row = (int) ((0.5 + mouseY) / Simulator.TILE_SCALE); // 마우스 Y 좌표를 타일 크기로 나누어 행 번호 계산
+		int col = (int) ((0.5 + mouseX) / Simulator.TILE_SCALE); // 마우스 X 좌표를 타일 크기로 나누어 열 번호 계산
 
 
 		return new int[]{row, col}; // [행, 열] 순으로 반환
@@ -115,9 +111,13 @@ public class RayCasting extends JFrame {
 					break;
 				}
 
-				if (rayCasting.gridInstance.getProbability().get(row).get(col) > 0.5) {
+
+
+				if (rayCasting.gridInstance.getReferencedMapProbability().get(row).get(col) > 0.5) {
 					g.setColor(Color.RED);
 					g.draw(new Line2D.Double(startX, startY, newX, newY));
+					g.fillOval((int) newX - 5, (int) newY - 5, 10, 10); // 클릭한 지점 중앙 표시
+
 
 					if (wasClicked) { // 클릭한 경우에만 적용
 						rayCasting.gridInstance.hitGrid(row, col);
@@ -130,6 +130,7 @@ public class RayCasting extends JFrame {
 					if (wasClicked) { // 클릭한 경우에만 적용
 						rayCasting.gridInstance.missGrid(row, col);
 					}
+
 				}
 			}
 		}

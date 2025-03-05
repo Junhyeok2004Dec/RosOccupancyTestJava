@@ -1,5 +1,9 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Grid {
 
@@ -14,12 +18,41 @@ public class Grid {
 	KeyHandler kh;
 	MouseHandler mh;
 
+
+
+
 	public Grid(Simulator simulator, KeyHandler kh, MouseHandler mh) {
+
+
+		ArrayList<Double> row;
 		this.worldGen = new WorldGen();
-		worldGen.Data();
-		probability = worldGen.getArrayData();
+		this.worldGen.Data();
+		this.probability = worldGen.getArrayData();
+		this.simulatorProbability = new ArrayList<>();
+
+
+		for(int i = 0; i < this.probability.size(); i++)
+		{
+
+			 row = new ArrayList<>();
+			for(int j = 0; j < this.probability.get(0).size(); j++)
+			{
+				row.add(0.5);
+			}
+
+
+			this.simulatorProbability.add(row);
+
+		}
+
+
 		this.simulator = simulator;
+
 		rayCasting = new RayCasting(this);
+
+
+
+
 
 		this.kh = kh;
 		this.mh = mh;
@@ -44,7 +77,8 @@ public class Grid {
 
 	// 히트된 그리드 업데이트
 	public void hitGrid(int row, int column) {
-		System.out.println("Updated grid at " + row + " " + column + "to " + this.probability.get(row).get(column));
+
+		//System.out.println("Updated grid at " + row + " " + column + "to " + this.simulatorProbability.get(row).get(column));
 
 		updateGrid(row, column, Simulator.pHIT);
 	}
@@ -60,20 +94,23 @@ public class Grid {
 
 
 	public void updateGrid(int row, int column, double probabilityFactor) {
-		double currentProbability = this.probability.get(row).get(column);
+		double currentProbability = this.simulatorProbability.get(row).get(column);
 		double newProbability = oddInverse(odds(currentProbability) * odds(probabilityFactor));
 
-		System.out.println(newProbability);
+		//System.out.println(newProbability);
 		newProbability = Math.max(0, Math.min(1, newProbability));
 
-		this.probability.get(row).set(column, newProbability);
+
+
+		this.simulatorProbability.get(row).set(column, newProbability);
+
 	}
 
 
 
 	// 그리드의 확률을 설정
 	public void setProbability(int row, int column) {
-		this.probability.get(row).set(column, this.worldGen.getData(row, column));
+		this.simulatorProbability.get(row).set(column, this.worldGen.getData(row, column));
 	}
 
 
@@ -86,15 +123,15 @@ public class Grid {
 
 	// 그리드 그리기
 	public void gridDraw(Graphics2D g2d) {
-		rows = this.probability.size();
-		cols = this.probability.get(0).size();
+		rows = this.getReferencedMapProbability().size();
+		cols = this.getReferencedMapProbability().get(0).size();
 
 		g2d.setFont(new Font("Arial", Font.ITALIC, 13));
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 
-				double probabilityValue = probability.get(i).get(j);
+				double probabilityValue = simulatorProbability.get(i).get(j);
 
 				// 색상 결정
 				if (probabilityValue > 0.5) {
@@ -105,6 +142,9 @@ public class Grid {
 					g2d.setColor(Simulator.MISS_COLOR);
 				}
 
+
+
+				//System.out.println(i + "," + j +" asd " + probabilityValue);
 
 
 
@@ -142,6 +182,10 @@ public class Grid {
 	}
 
 	public ArrayList<ArrayList<Double>> getProbability() {
+		return this.simulatorProbability;
+	}
+
+	public ArrayList<ArrayList<Double>> getReferencedMapProbability() {
 		return this.probability;
 	}
 }

@@ -1,5 +1,8 @@
+import Model.RectangleModel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Simulator extends JPanel implements Runnable{
 
@@ -49,6 +52,8 @@ public class Simulator extends JPanel implements Runnable{
 	long drawCount = 0;
 
 
+	private ArrayList<Rectangle> rectangles;
+
 
 	public static final int screenWidth = screenMultiX* TILE_SCALE * maxScreenColumn;
 	public static final int screenHeight = screenMultiY * TILE_SCALE * maxScreenRow;
@@ -57,7 +62,7 @@ public class Simulator extends JPanel implements Runnable{
 	private MouseHandler mouseHandler = new MouseHandler(this);
 
 	private Grid grid = new Grid(this, keyHandler, mouseHandler);
-
+	private RectangleModel rectangleModel;
 
 	public Simulator() {
 
@@ -82,6 +87,10 @@ public class Simulator extends JPanel implements Runnable{
 
 		this.addMouseListener(mouseHandler);
 
+		this.rectangles = new ArrayList<>();
+		rectangles.add(new Rectangle(0, 0, 10, 10));
+		this.rectangleModel = new RectangleModel(rectangles.get(0));
+
 	}
 
 
@@ -89,7 +98,7 @@ public class Simulator extends JPanel implements Runnable{
 	public void run() {
 
 
-		drawInterval = 1E+9 / fps; // 0.004166 sec
+		drawInterval = 1E+9 / fps;
 		dt = 0;
 		lastTime = System.nanoTime();
 
@@ -117,7 +126,6 @@ public class Simulator extends JPanel implements Runnable{
 			}
 
 			if (timer >= 1E+9) {
-				System.out.println("FPS\t" + drawCount);
 				drawCount = 0;
 				timer = 0;
 			}
@@ -143,6 +151,8 @@ public class Simulator extends JPanel implements Runnable{
 
 
 			this.grid.gridDraw(g2d);
+			this.rectangleModel.draw(g2d);
+
 			g2d.dispose();
 		}
 
