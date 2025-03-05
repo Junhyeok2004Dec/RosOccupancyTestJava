@@ -26,8 +26,8 @@ public class RayCasting extends JFrame {
 
 
 	public int[] getGridIndexFromMouse(int mouseX, int mouseY) {
-		int row = (int) ((0.5 + mouseY) / Simulator.TILE_SCALE); // 마우스 Y 좌표를 타일 크기로 나누어 행 번호 계산
-		int col = (int) ((0.5 + mouseX) / Simulator.TILE_SCALE); // 마우스 X 좌표를 타일 크기로 나누어 열 번호 계산
+		int row = ( mouseY) / Simulator.TILE_SCALE; // 마우스 Y 좌표를 타일 크기로 나누어 행 번호 계산
+		int col = ( mouseX) / Simulator.TILE_SCALE; // 마우스 X 좌표를 타일 크기로 나누어 열 번호 계산
 
 
 		return new int[]{row, col}; // [행, 열] 순으로 반환

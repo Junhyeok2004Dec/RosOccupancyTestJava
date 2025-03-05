@@ -66,7 +66,7 @@ public class Grid {
 		return (x / (1 - x));  // x / (1 - x)
 	}
 
-	// 확률 계산을 위한 역 Odds 계산
+	//역 Odds 계산
 	public static double oddInverse(Double x) {
 		if(x == -1) {
 			return -1;
@@ -75,24 +75,21 @@ public class Grid {
 
 	}
 
-	// 히트된 그리드 업데이트
+
 	public void hitGrid(int row, int column) {
 
 		//System.out.println("Updated grid at " + row + " " + column + "to " + this.simulatorProbability.get(row).get(column));
 
 		updateGrid(row, column, Simulator.pHIT);
 	}
-
-	// 미스된 그리드 업데이트
 	public void missGrid(int row, int column) {
 		updateGrid(row, column, Simulator.pMISS);
 	}
 
 
 
-	// 그리드 값을 업데이트하는 공통 메서드
 
-
+	//update Grid
 	public void updateGrid(int row, int column, double probabilityFactor) {
 		double currentProbability = this.simulatorProbability.get(row).get(column);
 		double newProbability = oddInverse(odds(currentProbability) * odds(probabilityFactor));
