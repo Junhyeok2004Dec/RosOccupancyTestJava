@@ -29,7 +29,7 @@ public class Simulator extends JPanel implements Runnable{
 	public static final int screenMultiY = 1;
 
 
-	public static final Double pHIT = 0.55; // 0.55 , This value must to be larger than 0.5
+	public static final Double pHIT = 0.51; // 0.55 , This value must to be larger than 0.5
 	public static final Double pMISS = 0.49; // 0.49 , This value must to be small than 0.5
 
 
