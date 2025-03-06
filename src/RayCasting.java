@@ -8,7 +8,7 @@ public class RayCasting extends JFrame {
 
 	private final ArrayList<Ray> rays_ = new ArrayList<>();
 	private double centerX, centerY;
-	private final int RAY_LENGTH = 30; // Ray의 길이
+	private final int RAY_LENGTH = 24; // Ray의 길이
 	private final int TILE_SIZE = Simulator.TILE_SCALE;   // 타일 크기
 	private final int ANGLE_INCREMENT = 24; // 각도 증가 (12도)
 

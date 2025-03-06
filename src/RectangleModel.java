@@ -10,6 +10,7 @@ public class RectangleModel extends PlaneModel implements Movable {
 	private KeyHandler keyHandler_;
 	private int dx_, dy_;
 	private Rectangle rectangleModel;
+	private int dTheta_;
 
 	public RectangleModel(int xPos, int yPos, int dx, int dy, KeyHandler keyhandler) {
 
@@ -35,11 +36,13 @@ public class RectangleModel extends PlaneModel implements Movable {
 
 		this.dx_ = 0;
 		this.dy_ = 0;
+		this.dTheta_ = 0;
 	}
 
 	public void draw(Graphics2D g) {
 		if(this.rectangleModel.isEmpty()) return;
 		g.setColor(Color.BLACK);
+		g.rotate(this.dTheta_);
 		g.draw(this.rectangleModel);
 	}
 
@@ -48,7 +51,7 @@ public class RectangleModel extends PlaneModel implements Movable {
 
 
 
-		this.dx_ = this.dy_ = 0;
+		this.dx_ = this.dy_ = this.dTheta_ =  0;
 		// KeyHandler update
 
 		//  up, down, right, left 에 대한 부분 존재
@@ -57,6 +60,8 @@ public class RectangleModel extends PlaneModel implements Movable {
 		if(this.keyHandler_.down) this.dy_ = 1;
 		if(this.keyHandler_.right) this.dx_ = 1;
 		if(this.keyHandler_.left) this.dx_ = -1;
+		if(this.keyHandler_.rightTurn) this.dTheta_ = 1;
+		if(this.keyHandler_.leftTurn) this.dTheta_ = -1;
 
 
 		//System.out.println(this.keyHandler_.up + " " + this.keyHandler_.down + " " + this.keyHandler_.right + " " + this.keyHandler_.left + "");
@@ -71,6 +76,11 @@ public class RectangleModel extends PlaneModel implements Movable {
 	public void translateRectangle(int x, int y) {
 		this.rectangleModel.translate(x, y);
 	}
+
+	public void translateRectangle(int x, int y, int theta) {
+		this.rectangleModel.translate((int) (Math.cos(theta) * x - Math.sin(theta)*y ), (int) ((Math.cos(theta)*x) + (Math.sin(theta)*y)));
+	}
+
 
 
 	public double getPositionX() {

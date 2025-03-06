@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
 
-	public static boolean up, down, right, left, exit, add, subtract;
+	public static boolean up, down, right, left, exit, add, subtract, rightTurn, leftTurn;
 	private Simulator gp_;
 
 
@@ -58,6 +58,13 @@ public class KeyHandler implements KeyListener {
 			case KeyEvent.VK_DOWN:
 				subtract = true;
 				break;
+			case KeyEvent.VK_Q:
+				rightTurn = true;
+				break;
+			case KeyEvent.VK_R:
+				leftTurn = true;
+				break;
+
 
 			default:
 				break;
@@ -97,6 +104,12 @@ public class KeyHandler implements KeyListener {
 				break;
 			case KeyEvent.VK_DOWN:
 				subtract = false;
+				break;
+			case KeyEvent.VK_Q:
+				rightTurn = false;
+				break;
+			case KeyEvent.VK_R:
+				leftTurn = false;
 				break;
 
 			default:

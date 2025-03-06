@@ -50,6 +50,8 @@ public class PlaneModel implements Movable {
 		return new int[]{this.x_, this.y_};
 	}
 
+
+
 	@Override
 	public void update() {
 

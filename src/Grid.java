@@ -25,7 +25,7 @@ public class Grid {
 	public Grid(Simulator simulator, KeyHandler kh, MouseHandler mh) {
 
 		this.rectangles = new ArrayList<>();
-		rectangles.add(new Rectangle(70, 70, 30, 30));
+		rectangles.add(new Rectangle(70, 70, 30, 14));
 		this.rectangleModel = new RectangleModel(rectangles.get(0), kh);
 
 		ArrayList<Double> row;
