@@ -37,7 +37,7 @@ public class WorldGen {
 
 	public void Data() {
 
-		String path = "D:\\simulator\\src\\data";
+		String path = "src/data";
 
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
 			while ((data = bufferedReader.readLine()) != null) {

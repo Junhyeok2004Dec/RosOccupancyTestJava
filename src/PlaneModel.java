@@ -46,7 +46,7 @@ public class PlaneModel implements Movable {
 	}
 
 	@Override
-	public int[] getPosition() {
+	public int[] getScale() {
 		return new int[]{this.x_, this.y_};
 	}
 

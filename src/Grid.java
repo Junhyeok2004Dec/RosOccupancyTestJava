@@ -18,11 +18,15 @@ public class Grid {
 	KeyHandler kh;
 	MouseHandler mh;
 
+	private ArrayList<Rectangle> rectangles;
 
-
+	private RectangleModel rectangleModel;
 
 	public Grid(Simulator simulator, KeyHandler kh, MouseHandler mh) {
 
+		this.rectangles = new ArrayList<>();
+		rectangles.add(new Rectangle(70, 70, 30, 30));
+		this.rectangleModel = new RectangleModel(rectangles.get(0), kh);
 
 		ArrayList<Double> row;
 		this.worldGen = new WorldGen();
@@ -114,6 +118,7 @@ public class Grid {
 
 	public void update() {
 
+		this.rectangleModel.update();
 		rayCasting.update();
 	}
 
@@ -165,11 +170,16 @@ public class Grid {
 			}
 		}
 
+
+		this.rectangleModel.draw(g2d);
 		rayCasting.draw(g2d);
 
 
 	}
 
+	public RectangleModel getRectangleModel() {
+		return this.rectangleModel;
+	}
 	public int getRows() {
 		return this.probability.size();
 	}

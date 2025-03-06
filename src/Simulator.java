@@ -16,13 +16,13 @@ public class Simulator extends JPanel implements Runnable{
 
 
 	public static final int ROOT_TILE_SCALE = 16;
-	public static final int SIZE_FACTOR = 3;
+	public static final int SIZE_FACTOR = 2;
 	public static int TILE_SCALE = ROOT_TILE_SCALE * SIZE_FACTOR;
 
 
 
-	public static final int maxScreenColumn =  32;
-	public static final int maxScreenRow = 24;
+	public static final int maxScreenColumn =  64;
+	public static final int maxScreenRow = 64;
 
 
 	public static final int screenMultiX = 1;
@@ -50,7 +50,6 @@ public class Simulator extends JPanel implements Runnable{
 	long drawCount = 0;
 
 
-	private ArrayList<Rectangle> rectangles;
 
 
 	public static final int screenWidth = screenMultiX* TILE_SCALE * maxScreenColumn;
@@ -60,7 +59,7 @@ public class Simulator extends JPanel implements Runnable{
 	private final MouseHandler mouseHandler = new MouseHandler(this);
 
 	private Grid grid = new Grid(this, keyHandler, mouseHandler);
-	private RectangleModel rectangleModel;
+
 
 	public Simulator() {
 
@@ -85,9 +84,6 @@ public class Simulator extends JPanel implements Runnable{
 
 		this.addMouseListener(mouseHandler);
 
-		this.rectangles = new ArrayList<>();
-		rectangles.add(new Rectangle(0, 0, 10, 10));
-		this.rectangleModel = new RectangleModel(rectangles.get(0), keyHandler);
 
 
 	}
@@ -133,13 +129,14 @@ public class Simulator extends JPanel implements Runnable{
 	}
 
 
+	public double getDt() {
+		return dt;
+	}
 	public void update() {
 
 
 		this.grid.update();
-		this.rectangleModel.update();
 	}
-
 
 
 
@@ -150,7 +147,6 @@ public class Simulator extends JPanel implements Runnable{
 
 
 			this.grid.gridDraw(g2d);
-			this.rectangleModel.draw(g2d);
 
 			g2d.dispose();
 		}

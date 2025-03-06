@@ -11,11 +11,11 @@ public class RectangleModel extends PlaneModel implements Movable {
 	private int dx_, dy_;
 	private Rectangle rectangleModel;
 
-	public RectangleModel(int xPos, int yPos, int dx, int dy, KeyListener keyListener_) {
+	public RectangleModel(int xPos, int yPos, int dx, int dy, KeyHandler keyhandler) {
 
 		super(new int[]{xPos, yPos}, new int[]{dx, dy});
 		this.rectangleModel = new Rectangle(dx, dy, xPos, yPos);
-
+		this.keyHandler_ = keyhandler;
 
 		this.dx_ = 0;
 		this.dy_ = 0;
@@ -48,17 +48,18 @@ public class RectangleModel extends PlaneModel implements Movable {
 
 
 
+		this.dx_ = this.dy_ = 0;
 		// KeyHandler update
 
 		//  up, down, right, left 에 대한 부분 존재
 
-		if(this.keyHandler_.up) this.dy_ = 10;
-		if(this.keyHandler_.down) this.dy_ = -10;
-		if(this.keyHandler_.right) this.dx_ = 10;
-		if(this.keyHandler_.left) this.dx_ = -10;
+		if(this.keyHandler_.up) this.dy_ = -1;
+		if(this.keyHandler_.down) this.dy_ = 1;
+		if(this.keyHandler_.right) this.dx_ = 1;
+		if(this.keyHandler_.left) this.dx_ = -1;
 
 
-		System.out.println(this.keyHandler_.up + " " + this.keyHandler_.down + " " + this.keyHandler_.right + " " + this.keyHandler_.left + "");
+		//System.out.println(this.keyHandler_.up + " " + this.keyHandler_.down + " " + this.keyHandler_.right + " " + this.keyHandler_.left + "");
 
 
 
@@ -69,5 +70,14 @@ public class RectangleModel extends PlaneModel implements Movable {
 
 	public void translateRectangle(int x, int y) {
 		this.rectangleModel.translate(x, y);
+	}
+
+
+	public double getPositionX() {
+		return this.rectangleModel.getX();
+	}
+
+	public double getPositionY() {
+		return this.rectangleModel.getY();
 	}
 }
