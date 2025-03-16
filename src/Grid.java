@@ -98,7 +98,7 @@ public class Grid {
 		double currentProbability = this.simulatorProbability.get(row).get(column);
 		double newProbability = oddInverse(odds(currentProbability) * odds(probabilityFactor));
 
-		//System.out.println(newProbability);
+
 		newProbability = Math.max(0, Math.min(1, newProbability));
 
 
@@ -134,6 +134,8 @@ public class Grid {
 			for (int j = 0; j < cols; j++) {
 
 				double probabilityValue = simulatorProbability.get(i).get(j);
+
+
 
 				// 색상 결정
 				if (probabilityValue > 0.5) {
